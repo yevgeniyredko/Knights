@@ -40,7 +40,13 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Game\GameModel.cs" />
+    <Compile Include="GameLogic\Cubic.cs" />
+    <Compile Include="GameLogic\Units\Farmer.cs" />
+    <Compile Include="GameLogic\GameModel.cs" />
+    <Compile Include="GameLogic\Kingdom.cs" />
+    <Compile Include="GameLogic\Units\Knight.cs" />
+    <Compile Include="GameLogic\Units\Spearman.cs" />
+    <Compile Include="GameLogic\Unit.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Window\MainWindow.cs">
       <SubType>Form</SubType>
@@ -49,6 +55,7 @@
   <ItemGroup>
     <None Include="app.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
