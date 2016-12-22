@@ -14,6 +14,7 @@ namespace MyGame
 
         public void Move()
         {
+            if (IsBankrupt) return; //throw new Exception("Game over");
             Duel();
             BarbariansRaid();
 
@@ -21,7 +22,7 @@ namespace MyGame
             cubicValues.Add(cubicValue);
             CheckCubicValue(cubicValue);
 
-            Console.WriteLine($"Cubic value: {cubicValue}");
+            log.Add($"Cubic value: {cubicValue}");
 
             foreach (var u in units.Where(u => u.Lives > 0))
             {
@@ -38,12 +39,18 @@ namespace MyGame
                 MoneyCount += 1500;
             else if (IsLastTwo)
                 MoneyCount += 500;
+
+            MoneyCount += 100;
+
+            if (IsBankrupt) log.Add("Game over!");
         }
         public void BuyUnits(int farmerCount, int spearmanCount, int knightCount)
         {
-            if (farmerCount * Farmer.Price + spearmanCount * Spearman.Price + knightCount * Knight.Price < MoneyCount)
+            var price = farmerCount * Farmer.Price + spearmanCount * Spearman.Price + knightCount * Knight.Price;
+            if (price > MoneyCount)
                 throw new ArgumentException("No money!");
             AddUnits(farmerCount, spearmanCount, knightCount);
+            MoneyCount -= price;
         }
 
         public int MoneyCount { get; private set; }
@@ -90,10 +97,11 @@ namespace MyGame
             else
                 diedUnit = unit2;
 
-            Console.WriteLine($"Duel! Died 1 {diedUnit.GetType().ToString()}");
+            log.Add($"Duel! Died 1 {diedUnit.GetType().ToString().Split('.')[1]}");
         }
         private void BarbariansRaid()
         {
+            if (cubicValues.Count < 20) return;
             var rnd = new Random();
             if (rnd.Next(100) < 95) return;
 
@@ -102,7 +110,7 @@ namespace MyGame
 
             MoneyCount -= (int)outcomingMoney;
 
-            Console.WriteLine($"Barbarians stolen {outcomingMoney}");
+            log.Add($"Barbarians stolen {outcomingMoney}");
         }
 
         private Cubic cubic = new Cubic();

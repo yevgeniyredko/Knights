@@ -11,17 +11,10 @@ namespace MyGame
     {
         static void Main()
         {
-            var kingdom = new Kingdom(4, 3, 2, 1000);
-            while(!kingdom.IsBankrupt)
-            {
-                Console.WriteLine($"Money: {kingdom.MoneyCount}");
-                Console.WriteLine($"Farmers: {kingdom.FarmerCount}");
-                Console.WriteLine($"Spearmen: {kingdom.SpearmanCount}");
-                Console.WriteLine($"Knights: {kingdom.KnightCount}");
-                kingdom.Move();
-                Thread.Sleep(1000);
-            }
-            Console.WriteLine("Bankrupt!");
+            var model = new GameModel();
+            var window = new MainWindow(model);
+            Application.EnableVisualStyles();
+            Application.Run(window);
         }
     }
 }
