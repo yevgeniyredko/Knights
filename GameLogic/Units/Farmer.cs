@@ -8,7 +8,7 @@
             Armor = 1;
             Price = 500;
             Lives = 10;
-            Income = 100;
+            Income = 20;
         }
     }
 }

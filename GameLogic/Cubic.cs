@@ -7,18 +7,18 @@ namespace MyGame
         AddFarmer,
         AddSpearman,
         AddKnight,
-        Add1000Gold,
-        Add2000Gold,
+        Add100Gold,
+        Add200Gold,
         BarbariansRaid
     }
 
     class Cubic
     {
-        private Random random = new Random();
+        private Random rnd = new Random();
 
         public CubicValues Next()
         {
-            return (CubicValues)random.Next(6);
+            return (CubicValues)rnd.Next(6);
         }
     }
 }

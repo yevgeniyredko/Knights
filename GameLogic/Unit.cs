@@ -1,4 +1,6 @@
-﻿namespace MyGame
+﻿using System;
+
+namespace MyGame
 {
     abstract class Unit
     {
@@ -13,6 +15,12 @@
         {
             if (Lives == 0) return;
             Lives--;
+        }
+
+        public void Die()
+        {
+            if (Lives == 0) throw new Exception("Unit already died!");
+            Lives = 0;
         }
     }
 }

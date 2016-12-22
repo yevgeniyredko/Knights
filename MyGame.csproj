@@ -41,9 +41,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameLogic\Cubic.cs" />
+    <Compile Include="GameLogic\IKingdom.cs" />
+    <Compile Include="GameLogic\Kingdoms\Kingdom.cs" />
     <Compile Include="GameLogic\Units\Farmer.cs" />
     <Compile Include="GameLogic\GameModel.cs" />
-    <Compile Include="GameLogic\Kingdom.cs" />
     <Compile Include="GameLogic\Units\Knight.cs" />
     <Compile Include="GameLogic\Units\Spearman.cs" />
     <Compile Include="GameLogic\Unit.cs" />
