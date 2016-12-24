@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace MyGame
 {
+    [Serializable]
     class Kingdom : IKingdom
     {
         public Kingdom(int farmerCount, int spearmanCount, int knightCount, int money)
@@ -15,6 +16,9 @@ namespace MyGame
         public void Move()
         {
             if (IsBankrupt) return; //throw new Exception("Game over");
+
+            log.Add($"Move number {cubicValues.Count + 1}");
+
             Duel();
             BarbariansRaid();
 
@@ -29,20 +33,11 @@ namespace MyGame
                 this.MoneyCount += u.Income;
                 u.Move();
             }
-
-            if (Is666)
-            {
-                units.Clear();
-                units.Add(new Farmer());
-            }
-            if (IsLastThree)
-                MoneyCount += 1500;
-            else if (IsLastTwo)
-                MoneyCount += 500;
-
+            CheckSpecialSituations();
             MoneyCount += 100;
 
             if (IsBankrupt) log.Add("Game over!");
+            log.Add("___");
         }
         public void BuyUnits(int farmerCount, int spearmanCount, int knightCount)
         {
@@ -54,11 +49,11 @@ namespace MyGame
         }
 
         public int MoneyCount { get; private set; }
-        public int FarmerCount { get { return UnitsCount(typeof(Farmer)); } }
-        public int SpearmanCount { get { return UnitsCount(typeof(Spearman)); } }
-        public int KnightCount { get { return UnitsCount(typeof(Knight)); } }
-        public bool IsBankrupt { get { return !(MoneyCount > 0 && 
-                    (FarmerCount > 0 || SpearmanCount > 0 || KnightCount > 0)); } }
+        public int FarmerCount => UnitsCount(typeof(Farmer));
+        public int SpearmanCount => UnitsCount(typeof(Spearman));
+        public int KnightCount => UnitsCount(typeof(Knight));
+        public bool IsBankrupt => !(MoneyCount > 0 && 
+                    (FarmerCount > 0 || SpearmanCount > 0 || KnightCount > 0));
 
         private readonly List<Unit> units = new List<Unit>();
         private void AddUnits(int farmerCount, int spearmanCount, int knightCount)
@@ -105,12 +100,24 @@ namespace MyGame
             var rnd = new Random();
             if (rnd.Next(100) < 95) return;
 
-            var outcomingMoney = (double)rnd.Next(400, 2001);
+            var outcomingMoney = (double)rnd.Next(500, 1001);
             outcomingMoney -= KnightCount * (outcomingMoney * 0.05);
 
             MoneyCount -= (int)outcomingMoney;
 
-            log.Add($"Barbarians stolen {outcomingMoney}");
+            log.Add($"Barbarians stolen {(int)outcomingMoney}");
+        }
+        private void CheckSpecialSituations()
+        {
+            if (Is666)
+            {
+                units.Clear();
+                units.Add(new Farmer());
+            }
+            if (IsLastThree)
+                MoneyCount += 1500;
+            else if (IsLastTwo)
+                MoneyCount += 500;
         }
 
         private Cubic cubic = new Cubic();
@@ -165,7 +172,7 @@ namespace MyGame
             }
         }
 
-        public string[] Log { get { return log.ToArray(); } }
+        public string[] Log => log.ToArray();
         private readonly List<string> log = new List<string>();
     }
 }

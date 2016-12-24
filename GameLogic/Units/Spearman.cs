@@ -1,14 +1,18 @@
-﻿namespace MyGame
+﻿using System;
+
+namespace MyGame
 {
+    [Serializable]
     class Spearman : Unit
     {
+        public static readonly int Price = 500;
+
         public Spearman()
         {
             Damage = 2;
             Armor = 2;
-            Price = 800;
             Lives = 12;
-            Income = -10;
+            Income = -45;
         }
     }
 }

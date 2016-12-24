@@ -1,14 +1,18 @@
-﻿namespace MyGame
+﻿using System;
+
+namespace MyGame
 {
+    [Serializable]
     class Farmer : Unit
     {
+        public static readonly int Price = 500;
+
         public Farmer()
         {
             Damage = 1;
             Armor = 1;
-            Price = 500;
             Lives = 10;
-            Income = 20;
+            Income = 150;
         }
     }
 }

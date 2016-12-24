@@ -12,6 +12,7 @@ namespace MyGame
         BarbariansRaid
     }
 
+    [Serializable]
     class Cubic
     {
         private Random rnd = new Random();

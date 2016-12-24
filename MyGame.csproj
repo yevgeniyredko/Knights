@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{B39ADDE4-E8E7-48DD-94B9-530D794450F0}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MyGame</RootNamespace>
     <AssemblyName>MyGame</AssemblyName>
@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
@@ -49,6 +52,7 @@
     <Compile Include="GameLogic\Units\Spearman.cs" />
     <Compile Include="GameLogic\Unit.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Serializer\Serializer.cs" />
     <Compile Include="Window\MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>

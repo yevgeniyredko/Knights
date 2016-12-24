@@ -9,12 +9,21 @@ namespace MyGame
 {
     class Program
     {
+        [STAThread]
         static void Main()
         {
-            var model = new GameModel();
-            var window = new MainWindow(model);
+            GameModel model;
+            try
+            {
+                model = Serializer.ReadFromBinary<GameModel>("current.dat");
+            }
+            catch
+            {
+                model = null;
+            }
             Application.EnableVisualStyles();
-            Application.Run(window);
+            Application.Run(new MainWindow(model));
+            
         }
     }
 }

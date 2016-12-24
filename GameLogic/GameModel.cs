@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace MyGame
 {
@@ -11,22 +12,37 @@ namespace MyGame
         MultiPlayer
     }
 
+    [Serializable]
     class GameModel
     {
-        public GameModel()
+        public GameModel(GameModes mode)
         {
-            CurrentMode = GameModes.SinglePlayer;
-            kingdom1 = new Kingdom(4, 3, 2, 1000);
-            first = true;
+            NewGame(mode);
         }
 
-        public readonly GameModes CurrentMode;
+        public bool IsFirstPlayer { get; private set; }
+        public IKingdom CurrentKingdom => IsFirstPlayer ? kingdom1 : kingdom2;
 
-        public IKingdom CurrentKingdom { get { return first ? kingdom1 : kingdom2; } }
+        public void NewGame(GameModes mode)
+        {
+            CurrentMode = mode;
+            kingdom1 = new Kingdom(4, 3, 2, 1000);
+            if (mode == GameModes.MultiPlayer)
+            {
+                Thread.Sleep(10);
+                kingdom2 = new Kingdom(4, 3, 2, 1000);
+            }            
+            IsFirstPlayer = true;
+        }
+        public void ChangePlayer()
+        {
+            if (CurrentMode == GameModes.SinglePlayer)
+                throw new Exception();
+            IsFirstPlayer = !IsFirstPlayer;
+        }
 
-        private bool first;
-
-        IKingdom kingdom1;
-        IKingdom kingdom2;
+        private GameModes CurrentMode;
+        private IKingdom kingdom1;
+        private IKingdom kingdom2;
     }
 }
