@@ -343,7 +343,17 @@ namespace MyGame
 
             #endregion
 
-            FormClosed += (sender, args) => Serializer.WriteToBinary("current.dat", game);
+            FormClosed += (sender, args) =>
+            {
+                try
+                {
+                    Serializer.WriteToBinary("current.dat", game);
+                }
+                catch
+                {
+                    // Nothing to write
+                }
+            };
         }
     }
 }
